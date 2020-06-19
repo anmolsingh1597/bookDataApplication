@@ -15,6 +15,7 @@
 		8EC4D6A324958399003D14AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EC4D6A124958399003D14AF /* LaunchScreen.storyboard */; };
 		8EC4D6AC249589E5003D14AF /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4D6AB249589E5003D14AF /* Book.swift */; };
 		8EC4D6B124958DAC003D14AF /* BookListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4D6B024958DAC003D14AF /* BookListTableViewController.swift */; };
+		8EC4D709249D65E8003D14AF /* BookDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4D707249D65E8003D14AF /* BookDataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8EC4D6A424958399003D14AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EC4D6AB249589E5003D14AF /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		8EC4D6B024958DAC003D14AF /* BookListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListTableViewController.swift; sourceTree = "<group>"; };
+		8EC4D708249D65E8003D14AF /* BookDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookDataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		8EC4D6AA249589D7003D14AF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8EC4D707249D65E8003D14AF /* BookDataModel.xcdatamodeld */,
 				8EC4D6AB249589E5003D14AF /* Book.swift */,
 			);
 			path = Model;
@@ -164,6 +167,7 @@
 				8EC4D69B24958398003D14AF /* ViewController.swift in Sources */,
 				8EC4D6B124958DAC003D14AF /* BookListTableViewController.swift in Sources */,
 				8EC4D69724958398003D14AF /* AppDelegate.swift in Sources */,
+				8EC4D709249D65E8003D14AF /* BookDataModel.xcdatamodeld in Sources */,
 				8EC4D69924958398003D14AF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +366,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8EC4D707249D65E8003D14AF /* BookDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8EC4D708249D65E8003D14AF /* BookDataModel.xcdatamodel */,
+			);
+			currentVersion = 8EC4D708249D65E8003D14AF /* BookDataModel.xcdatamodel */;
+			path = BookDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8EC4D68B24958398003D14AF /* Project object */;
 }

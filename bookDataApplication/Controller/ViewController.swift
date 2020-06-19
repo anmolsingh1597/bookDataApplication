@@ -7,9 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
+    //MARK: CoreData manipulation - appDelegate and the context
+    
+    //1: creating an instance of AppDelegate
+    /// app delegate instance
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    //2: create the context
+    var manageContext: NSManagedObjectContext!
+  
     var books: [Book]?
     
     @IBOutlet var textFields: [UITextField]!
@@ -18,10 +28,20 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         
-        //MARK:- Notification for checking when user went out of app
-        NotificationCenter.default.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
         
-        loadData()
+          
+        /// context to use for COREDATA
+        manageContext = appDelegate.persistentContainer.viewContext
+          
+        
+        //MARK:- Notification for checking when user went out of app
+//        NotificationCenter.default.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(saveCoreData), name: UIApplication.willResignActiveNotification, object: nil)
+        
+        
+//        loadData()
+        
+        loadCoreData()
     }
 
     func getDataFilePath() -> String {
@@ -67,10 +87,11 @@ class ViewController: UIViewController {
         
         self.books?.append(book)
         
-            textFields[0].text = ""
-            textFields[1].text = ""
-            textFields[2].text = ""
-            textFields[3].text = ""
+        for textfield in textFields {
+            textfield.text = ""
+            textfield.resignFirstResponder()
+        }
+           
     }
     
     // calling variable of another viewcontroller
@@ -97,5 +118,63 @@ class ViewController: UIViewController {
         
         
     }
+    
+    //MARK: CoreData functions
+    
+    func loadCoreData() {
+        books = [Book]()
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookModel")
+        
+        do {
+            let results = try manageContext.fetch(fetchRequest)
+            if results is [NSManagedObject]{
+            for result in results as! [NSManagedObject]{
+            
+                let title = result.value(forKey: "title") as! String
+                let author = result.value(forKey: "author") as! String
+                let pages = result.value(forKey: "pages") as! Int
+                let year = result.value(forKey: "year") as! Int
+                books?.append(Book(title: title, author: author, pages: pages, year: year))
+                }
+            }
+        } catch  {
+            print(error)
+        }
+    }
+    
+   @objc func saveCoreData() {
+        
+        clearCoreData()
+        
+        for book in self.books! {
+            let bookEntity = NSEntityDescription.insertNewObject(forEntityName: "BookModel", into: manageContext)
+            bookEntity.setValue(book.title, forKey: "title")
+            bookEntity.setValue(book.author, forKey: "author")
+            bookEntity.setValue(book.pages, forKey: "pages")
+            bookEntity.setValue(book.year, forKey: "year")
+        }
+        do {
+            try manageContext.save()
+        } catch  {
+            print(error)
+        }
+    }
+    
+    func clearCoreData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookModel")
+//        fetchRequest.returnsObjectsAsFaults = false
+        do{
+            let results = try manageContext.fetch(fetchRequest)
+            
+            for result in results  {
+                if let manageObject = result as? NSManagedObject {
+                    manageContext.delete(manageObject)
+                }
+            }
+            
+        }catch{
+            print("Error deleting records: \(error)")
+        }
+    }
 }
-
